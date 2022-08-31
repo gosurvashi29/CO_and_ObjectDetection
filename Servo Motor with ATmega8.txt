@@ -1,0 +1,39 @@
+#define F_CPU 1000000UL
+#include<avr/io.h>
+#include<util/delay.h>
+
+int main()
+{
+ 
+TCCR1A=0;
+ICR1=19999;
+
+TCCR1A=(1<<WGM11);
+TCCR1B=(1<<WGM13) | (1<<WGM12) | (1<<CS10);
+
+DDRB=0xff;
+
+TCCR1A |= 2<<6;
+TCCR1A |= 2<<4;
+while(1)
+{
+
+
+for(float i=1.5;i<=2;i=i+0.5)
+{
+OCR1A = ICR1 *(i /20);
+_delay_ms(1000);
+}
+
+
+for(float i=1.5;i>=1;i=i-0.5)
+{
+OCR1A = ICR1 *(i /20);
+_delay_ms(1000);
+}
+
+}
+
+
+return 0;
+}
